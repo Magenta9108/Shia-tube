@@ -22,32 +22,31 @@ router.get("/:videoId", async (req, res) => {
   }
 
   try {
-    const commentSection = await youtube.getComments(videoId);
-    const commentThreads = commentSection.contents || [];
 
-    const totalCommentCountText = commentSection.header?.count?.text
-      || commentSection.header?.comments_count?.text
-      || null;
+// const commentSection = await youtube.getComments(videoId);
 
-    const comments = commentThreads.map((thread) => {
-      const c = thread.comment;
-      return {
-        author: c.author?.name || "匿名",
-        authorIcon: c.author?.thumbnails?.[0]?.url || null,
-        text: c.content?.toString() || "",
-        date: c.published_time || "", 
-        likes: c.like_count || 0,
-      };
-    });
+// const commentThreads = commentSection.contents || [];
 
-    res.json({
-      totalCommentCount: totalCommentCountText,
-      comments,
-    });
-  } catch (err) {
-    console.error("コメント取得失敗:", err);
-    res.status(500).json({ error: "コメントの取得に失敗しました。" });
-  }
+
+
+
+res.json({
+
+totalCommentCount: "0",
+
+comments: [],
+
+});
+
+} catch (err) {
+
+console.error("コメント取得失敗:", err);
+
+res.status(500).json({ error: "コメントの取得に失敗しました。" });
+
+} 
+
+  
 });
 
 export default router;
